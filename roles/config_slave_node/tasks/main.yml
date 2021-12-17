@@ -1,0 +1,28 @@
+---
+- name: Configure NTP server
+  include_role: 
+    name: chrony
+  vars: 
+    chrony_ntp_servers:
+    - clock.corp.redhat.com iburst
+    - clock.redhat.com iburst
+    - clock2.redhat.com iburst
+    chrony_role_action: all
+
+- name: Add terraform repo
+  shell: "sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo"
+
+- name: Install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+
+- name: Add slave1 user
+  include_tasks: save1_user.yml
+
+- name: Download oc binary
+  include_tasks: oc_binary.yml
+  loop: "{{ oc_binaries }}"
+  loop_control: 
+    loop_var: oc_binary

@@ -1,0 +1,22 @@
+- name: Add user slave1
+  user:
+    name: "{{ slave1_user }}"
+
+- name: sudoers | Create sudoers.d files
+  copy:
+    content: '{{ slave1_user }} ALL=(ALL) NOPASSWD:ALL'
+    dest: /etc/sudoers.d/{{ slave1_user }}
+    owner: root
+    group: root
+    mode: 0440
+    force: yes
+
+- name: Copy the fedora user shared keys to slave1 user
+  shell: "sudo cp -R /home/fedora/.ssh /home/slave1/" 
+
+- name: Change files owner
+  file:
+    path: /home/{{ slave1_user }}/.ssh
+    recurse: yes
+    owner: "{{ slave1_user }}"
+    group: "{{ slave1_user }}"

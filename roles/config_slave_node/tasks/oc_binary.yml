@@ -1,0 +1,24 @@
+- name: OC binaries root directory
+  set_fact:
+    oc_root_dir: /home/{{ slave1_user }}/OCP_envs
+
+- name: Copy activate and activateCompletion files to the oc binary directory
+  copy:
+    src: "{{ item }}"
+    dest: "{{ oc_root_dir }}/{{ oc_binary.version }}/"
+    mode: 0644
+    owner: "{{ slave1_user }}"
+    group: "{{ slave1_user }}"
+  loop:
+    - activate
+    - activateCompletion
+
+- name: download {{ oc_binary.version }} oc binary
+  ansible.builtin.unarchive:
+    src: "{{ oc_binary.url }}"
+    dest: "{{ oc_root_dir }}/{{ oc_binary.version }}/"
+    remote_src: yes
+    mode: 0755
+    owner: "{{ slave1_user }}"
+    group: "{{ slave1_user }}"
+

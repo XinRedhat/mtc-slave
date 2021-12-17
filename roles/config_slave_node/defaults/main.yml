@@ -1,0 +1,19 @@
+---
+packages: 
+  - git
+  - podman
+  - skopeo
+  - terraform
+  - bsdtar
+  - jq
+  - pipenv
+  - java-1.8.0-openjdk.x86_64
+
+slave1_user: slave1
+
+
+oc_binaries:
+  - version: 3.11
+    url: https://mirror.openshift.com/pub/openshift-v3/clients/3.11.525-1/linux/oc.tar.gz
+  - version: 4.7 
+    url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-4.7/openshift-client-linux.tar.gz

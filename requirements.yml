@@ -1,0 +1,5 @@
+---
+# import roles, so that all these roles could be shared with other projects
+- src: git+https://github.com/openstack/ansible-role-chrony.git
+  name: chrony
+  

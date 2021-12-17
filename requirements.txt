@@ -1,0 +1,4 @@
+ansible>=2.9
+yamllint
+flake8
+ansible-lint
